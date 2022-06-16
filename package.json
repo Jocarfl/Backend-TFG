@@ -10,14 +10,19 @@
     "nodejs",
     "mongodb",
     "rest",
-    "api"
+    "api",
+    "jwt",
+    "authentication"
+
   ],
   "author": "Jocarfl",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "express": "^4.18.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.3.8"
   }
 }
