@@ -58,7 +58,7 @@ function initial() {
           if (err) {
             console.log("error", err);
           }
-          console.log("added 'medico' to roles collection");
+          console.log("added 'mod' to roles collection");
         });
         new Role({
           name: "admin"

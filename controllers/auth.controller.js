@@ -9,12 +9,7 @@ exports.signup = (req, res) => {
   const user = new User({
     username: req.body.username,
     email: req.body.email,
-    password: bcrypt.hashSync(req.body.password, 8),
-    name:{
-        first_name : req.body.name.first_name,
-        second_name : req.body.name.second_name
-    },
-    fecha_nacimiento: req.body.fecha_nacimiento
+    password: bcrypt.hashSync(req.body.password, 8)
   });
   user.save((err, user) => {
     if (err) {
@@ -93,8 +88,6 @@ exports.signin = (req, res) => {
       res.status(200).send({
         id: user._id,
         username: user.username,
-        first_name: user.name.first_name,
-        second_name : user.name.second_name,
         email: user.email,
         roles: authorities,
         accessToken: token
