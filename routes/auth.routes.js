@@ -12,10 +12,10 @@ module.exports = function(app) {
   });
 
   app.post(
-    "/api/test/admin/signup",
+    "/api/auth/signup",
     [
-      authJwt.verifyToken, 
-      authJwt.isAdmin,
+      //authJwt.verifyToken, 
+      //authJwt.isAdmin,
       verifySignUp.checkDuplicateUsernameOrEmail,
       verifySignUp.checkRolesExisted,
       
