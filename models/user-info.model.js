@@ -17,12 +17,10 @@ const UserInfo = mongoose.model("UserInfo", new mongoose.Schema({
         required: true
     },
     height: {
-        type: Number,
-        required: true
+        type: Number
     },
     weight: {
-        type: Number,
-        required: true
+        type: Number
     },
     ideal_weight: {
         type: Number
@@ -30,12 +28,10 @@ const UserInfo = mongoose.model("UserInfo", new mongoose.Schema({
     weight_history: [
         {
             date: {
-                type: Date,
-                required: true
+                type: Date
             },
             weight: {
-                type: Number,
-                required: true
+                type: Number
             }
         }
     ]

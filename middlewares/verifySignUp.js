@@ -30,6 +30,25 @@ checkDuplicateUsernameOrEmail = (req, res, next) => {
     });
   });
 };
+
+
+checkDuplicateDNI = (req,res,next)=>{
+  User.findOne({
+    dni: req.body.dni
+  }).exec((err, user) => {
+    if (err) {
+      res.status(500).send({ message: err });
+      return;
+    }
+    if (user) {
+      res.status(400).send({ message: "Failed! DNI is already in use!" });
+      return;
+    }
+    next();
+  });
+ 
+}
+
 checkRolesExisted = (req, res, next) => {
   if (req.body.roles) {
     for (let i = 0; i < req.body.roles.length; i++) {
@@ -45,6 +64,7 @@ checkRolesExisted = (req, res, next) => {
 };
 const verifySignUp = {
   checkDuplicateUsernameOrEmail,
-  checkRolesExisted
+  checkRolesExisted,
+  checkDuplicateDNI
 };
 module.exports = verifySignUp;

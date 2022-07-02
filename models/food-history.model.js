@@ -12,10 +12,16 @@ const FoodHistory = mongoose.model(
             type : Date,
             required : true
           },
-        food: {
-            type : Date,
+        meals: [{
+          name: {
+            type : String,
             required : true
-        },      
+          },
+          food: {
+            type : Array,
+            required : true
+          }
+          }],      
     }],
 
   })

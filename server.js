@@ -53,12 +53,12 @@ function initial() {
           console.log("added 'user' to roles collection");
         });
         new Role({
-          name: "medico"
+          name: "moderator"
         }).save(err => {
           if (err) {
             console.log("error", err);
           }
-          console.log("added 'mod' to roles collection");
+          console.log("added 'moderator' to roles collection");
         });
         new Role({
           name: "admin"
