@@ -34,6 +34,8 @@ app.get("/", (req, res) => {
 
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
+require('./routes/food.routes')(app);
+require('./routes/admin.routes')(app);
 
 // set port, listen for requests
 const PORT = process.env.PORT || 8080;
@@ -69,5 +71,5 @@ function initial() {
           console.log("added 'admin' to roles collection");
         });
       }
-    });
+    });  
   }

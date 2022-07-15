@@ -1,7 +1,9 @@
 const config = require("../config/auth.config");
 const db = require("../models");
 const User = db.user;
+const FoodHistory = db.foodhistory;
 const Role = db.role;
+const food = require("./food.controller");
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
@@ -51,11 +53,12 @@ exports.signup = (req, res) => {
           if (err) {
             res.status(500).send({ message: err });
             return;
-          }
+          }         
           res.send({ message: "User was registered successfully!" });
         });
       });
     }
+    food.crearRegistroComidaPorId(user._id);
   });
 };
 

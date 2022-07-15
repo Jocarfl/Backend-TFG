@@ -3,23 +3,20 @@ const mongoose = require("mongoose");
 const FoodHistory = mongoose.model(
   "FoodHistory",
   new mongoose.Schema({
-    id_user: {
+    _id: {
         type: mongoose.Schema.Types.ObjectId,
         required : true
     },
     data :[{
         date: {
-            type : Date,
-            required : true
+            type : String
           },
         meals: [{
           name: {
-            type : String,
-            required : true
+            type : String
           },
           food: {
-            type : Array,
-            required : true
+            type : Array
           }
           }],      
     }],
