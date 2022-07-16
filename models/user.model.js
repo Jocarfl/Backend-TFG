@@ -38,6 +38,9 @@ const User = mongoose.model(
   ideal_weight: {
       type: Number
   },
+  id_mod:{
+    type: mongoose.Schema.Types.ObjectId
+  },
   weight_history: [
       {
           date: {

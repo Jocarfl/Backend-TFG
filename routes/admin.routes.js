@@ -14,5 +14,7 @@ module.exports = function(app) {
  // app.get("/api/admin/getAllModerators", [authJwt.verifyToken], controller.getAllModerators);
 
   app.get("/api/admin/getAllModerators", controller.getAllModerators);
+
+  app.post("/api/admin/vincularUsuarioConMod", controller.vincularUsuarioConMod);
   
 };

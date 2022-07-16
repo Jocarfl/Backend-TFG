@@ -8,5 +8,4 @@ db.user = require("./user.model");
 db.role = require("./role.model");
 db.foodhistory = require("./food-history.model");
 db.ROLES = ["user", "moderator", "admin"];
-db.tutorials = require("./tutorial.model.js")(mongoose);
 module.exports = db;
