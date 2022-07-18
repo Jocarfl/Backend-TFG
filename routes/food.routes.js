@@ -9,6 +9,6 @@ module.exports = function(app) {
     next();
   });
 
-  app.post("/api/food/insertFoodRegistration", [authJwt.verifyToken], controller.insertarComidaDiariaPorId);
+  app.post("/api/food/insertFoodRegistration", controller.insertarComidaDiariaPorId);
   
 };

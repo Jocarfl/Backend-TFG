@@ -9,16 +9,26 @@ const FoodHistory = mongoose.model(
     },
     data :[{
         date: {
-            type : String
+            type : Date
           },
-        meals: [{
-          name: {
-            type : String
+        comidas: {
+          desayuno : {
+            type : JSON
           },
-          food: {
-            type : Array
+          almuerzo : {
+            type : JSON
+          },
+          comida : {
+            type : JSON
+          },
+          merienda : {
+            type : JSON
+          },
+          cena : {
+            type : JSON
           }
-          }],      
+          }, 
+          _id:false     
     }],
 
   })
