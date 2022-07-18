@@ -16,5 +16,7 @@ module.exports = function(app) {
   app.get("/api/admin/getAllModerators", controller.getAllModerators);
 
   app.post("/api/admin/vincularUsuarioConMod", controller.vincularUsuarioConMod);
+
+  app.get("/api/admin/getPacientesVinculadosAlModerador", controller.getPacientesVinculadosAlModerador);
   
 };
