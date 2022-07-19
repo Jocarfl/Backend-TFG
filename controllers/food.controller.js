@@ -23,5 +23,5 @@ FoodHistory.findByIdAndUpdate(req.body.id, {$push: {data: {date : date , comidas
     if (err) return res.status(500).send(err);
     if (!doc) return res.status(404).send("Id Not found.");
     return res.status(200).send('Succesfully saved.');});
-};
+  };
 
