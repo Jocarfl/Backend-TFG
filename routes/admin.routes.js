@@ -1,5 +1,6 @@
-const { authJwt } = require("../middlewares");
+const { verifyModUserLink,authJwt } = require("../middlewares");
 const controller = require("../controllers/admin.controller");
+const { isAdmin } = require("../middlewares/authJwt");
 
 
 module.exports = function(app) {
@@ -15,7 +16,7 @@ module.exports = function(app) {
 
   app.get("/api/admin/getAllModerators", controller.getAllModerators);
 
-  app.post("/api/admin/vincularUsuarioConMod", controller.vincularUsuarioConMod);
+  app.post("/api/admin/vincularUsuarioConMod",[verifyModUserLink.verifyUserRole,authJwt.verifyToken,authJwt.isAdmin] , controller.vincularUsuarioConMod);
 
   app.get("/api/admin/getPacientesVinculadosAlModerador", controller.getPacientesVinculadosAlModerador);
   

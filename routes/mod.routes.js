@@ -15,4 +15,8 @@ module.exports = function(app) {
 
   app.get("/api/mod/getRegistroComidaDePacientePorFecha", controller.getRegistroComidaDePacientePorFecha);
 
+  app.get("/api/mod/getHistorialPesoPaciente", controller.getHistorialPesoPaciente);
+
+  app.post("/api/mod/insertarPesoPacienteEnHistorial", controller.insertarPesoPacienteEnHistorial);
+
 };

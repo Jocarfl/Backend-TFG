@@ -48,7 +48,8 @@ const User = mongoose.model(
           },
           weight: {
               type: Number
-          }
+          }, 
+          _id:false  
       }
   ],
   roles: [
