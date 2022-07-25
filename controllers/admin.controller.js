@@ -36,7 +36,7 @@ exports.vincularUsuarioConMod = (req, res) => {
     User.findOneAndUpdate({dni: req.body.dni},{ $set:{
         id_mod : req.body.id_mod
     }}, function(err, doc) {
-        if (err) return res.status(500).send({error: err});
+        if (err) return res.status(500).send({error: err}); 
         if (!doc) return res.status(404).send({ message: "User not found" });
         return res.status(200).send({ message: "Vinculado con éxito" });
         

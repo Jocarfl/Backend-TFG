@@ -11,12 +11,17 @@ module.exports = function(app) {
     next();
   });
 
- // app.get("/api/admin/getAllModerators", [authJwt.verifyToken], controller.getAllModerators);
+ // app.get("/api/admin/getAllModerators", [authJwt.verifyToken, authJwt.isModerator], controller.getAllModerators);
 
   app.get("/api/mod/getRegistroComidaDePacientePorFecha", controller.getRegistroComidaDePacientePorFecha);
 
   app.get("/api/mod/getHistorialPesoPaciente", controller.getHistorialPesoPaciente);
 
   app.post("/api/mod/insertarPesoPacienteEnHistorial", controller.insertarPesoPacienteEnHistorial);
+
+  app.post("/api/mod/insertarRecomendacionPaciente", controller.insertarRecomendacionPaciente);
+
+  app.get("/api/mod/getRecomendacionesDelPaciente", controller.getRecomendacionesDelPaciente);
+
 
 };

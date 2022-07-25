@@ -44,13 +44,36 @@ const User = mongoose.model(
   weight_history: [
       {
           date: {
-              type: Date
+              type: Date,
+              required: true
           },
           weight: {
-              type: Number
+              type: Number,
+              required: true
           }, 
           _id:false  
       }
+  ],
+  recomendations:[
+    {
+      date:{
+        type: Date,
+        required: true
+      },
+      title:{
+        type: String,
+        required: true
+      },
+      description:{
+        type: String,
+        required: true
+      },
+      completed:{
+        type: Boolean,
+        required: true
+      },
+      _id:false
+    }
   ],
   roles: [
       {
