@@ -52,6 +52,9 @@ exports.insertarPesoPacienteEnHistorial = (req, res) => {
                 date: date,
                 weight: req.body.weight
             }
+        },
+        $set: {
+            weight: req.body.weight
         }
     }, function (err, doc) {
         if (err) 
