@@ -15,7 +15,9 @@ exports.signup = (req, res) => {
     first_name: req.body.first_name,
     second_name: req.body.second_name,
     dni: req.body.dni,
-    born_date: req.body.born_date
+    born_date: req.body.born_date,
+    gender: req.body.gender,
+    height : req.body.height
   });
   user.save((err, user) => {
     if (err) {

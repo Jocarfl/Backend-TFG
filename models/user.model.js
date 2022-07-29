@@ -29,8 +29,14 @@ const User = mongoose.model(
       type: String,
       required: true
   },
+  gender :{
+    type: String,
+    required: true
+  },
+
   height: {
-      type: Number
+      type: Number,
+      required: true
   },
   weight: {
       type: Number
