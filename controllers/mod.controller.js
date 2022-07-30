@@ -7,7 +7,7 @@ exports.getRegistroComidaDePacientePorFecha = (req, res) => {
     function checkDate(v) {
         var r = new Date(req.query.date);
         var rm = r.getMonth() - 1;
-        var rd = r.getDate() + 1;
+        var rd = r.getDate() ;
         var d = v
             .date
             .getFullYear() + "-" + v
