@@ -77,8 +77,7 @@ const User = mongoose.model(
       completed:{
         type: Boolean,
         required: true
-      },
-      _id:false
+      }
     }
   ],
   roles: [

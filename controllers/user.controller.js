@@ -1,12 +1,45 @@
-exports.allAccess = (req, res) => {
-    res.status(200).send("Public Content.");
-  };
-  exports.userBoard = (req, res) => {
-    res.status(200).send("User Content.");
-  };
-  exports.adminBoard = (req, res) => {
-    res.status(200).send("Admin Content.");
-  };
-  exports.moderatorBoard = (req, res) => {
-    res.status(200).send("Moderator Content.");
-  };
+const db = require("../models");
+const User = db.user;
+
+
+exports.getRecomendacionesDelPaciente = (req, res) => {
+  User.findOne({
+      _id: req.query._id
+  }, function (err, user) {
+      var recomendacionesMap = [];
+      if (user) {
+          user.recomendations.forEach(function (data) {
+              
+              recomendacionesMap.push(data);
+              });
+      }
+      if (err) return res.status(500).send({error: err});
+      if (!req.query._id) return res.status(404).send("Id Not found.");
+      return res.status(200).send(recomendacionesMap);
+  });
+}
+
+
+exports.marcarRecomendacionComoCompletada = (req, res) => {
+
+  User.findOneAndUpdate({
+      _id: req.body._id,
+      "recomendations._id": req.body.idRec
+  }, {
+      $set: {
+        "recomendations.$.completed":true
+       }}
+       , function (err, doc) {
+      if (err) 
+          return res
+              .status(500)
+              .send(err);
+      if (!doc) 
+          return res
+              .status(404)
+              .send("Id Not found.");
+      return res
+          .status(200)
+          .send({message :'Succesfully saved.'});
+  });
+}
