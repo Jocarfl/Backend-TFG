@@ -30,4 +30,8 @@ module.exports = function(app) {
   app.post("/api/user/sumarPuntuacionAUsuarioPorElemento", gamification.sumarPuntuacionAUsuarioPorElemento);
 
   app.get("/api/user/getInfoGamificacionPorId", gamification.getInfoGamificacionPorId);
+
+  app.get("/api/user/getUltimosPesosUsuario", controller.getUltimosPesosUsuario);
+
+  
 };

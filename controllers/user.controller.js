@@ -23,6 +23,27 @@ exports.getRecomendacionesDelPacientePorCompletados = (req, res) => {
   });
 }
 
+exports.getUltimosPesosUsuario = (req, res) => {
+  User.findOne({
+      _id: req.query._id
+  }, function (err, user) {
+      var pesoMap = [];
+      if (user) {
+          user.weight_history.forEach(function (data) {
+
+                  pesoMap.push(data);
+              });
+      }
+      if (err) 
+          return res.status(500).send({error: err});
+      if (!req.query._id) 
+          return res.status(404).send("Id Not found.");
+      return res
+          .status(200)
+          .send(pesoMap);
+  });
+}
+
 
 exports.marcarRecomendacionComoCompletada = (req, res) => {
 

@@ -15,6 +15,9 @@ const Gamification = mongoose.model(
         type: Number,
         required : true
     },
+    limit_score :{
+      type:Number
+    },
     weekly_score:{
       type: Number,
       required : true

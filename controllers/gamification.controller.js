@@ -8,6 +8,7 @@ exports.crearSistemaGamificadoPorIdUsuario = (id) => {
       _id: id,
       level: 1,
       score:0,
+      limit_score: 50,
       weekly_score:0,
     }).save(err => {
       if (err) {
@@ -22,7 +23,7 @@ exports.crearSistemaGamificadoPorIdUsuario = (id) => {
     var puntuaciónLimiteInicial = 50;
     const factorPuntos = 1.5;
 
-    for(i=1;i<=niveles;i++){
+    for(i=1;i<niveles;i++){
 
         if(userGamInfo.level == i){
             var limitePuntos = puntuaciónLimiteInicial;
@@ -30,12 +31,10 @@ exports.crearSistemaGamificadoPorIdUsuario = (id) => {
                 const puntosRestantes = userGamInfo.score - limitePuntos;
                 Gamification.findOneAndUpdate({_id : userGamInfo._id},{
                     $inc: { level: 1 },
-                    $set: { score: puntosRestantes }
+                    $set: { score: puntosRestantes , limit_score: limitePuntos * factorPuntos }
                 }, function (err,doc) { });
-                
             }
         }
-
         puntuaciónLimiteInicial = puntuaciónLimiteInicial * factorPuntos;
     }
   }
