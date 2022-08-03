@@ -24,8 +24,7 @@ exports.getRegistroComidaDePacientePorFecha = (req, res) => {
         _id: req.query._id
     }, function (err, doc) {
         if (doc && req.query.date) {
-            const date = doc
-                .data
+            const date = doc.data
                 .find(checkDate);
             return res
                 .status(200)

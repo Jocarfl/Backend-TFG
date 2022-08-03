@@ -3,13 +3,14 @@ const db = require("../models");
 const FoodHistory = db.foodhistory;
 
 exports.crearRegistroComidaPorId = (id) => {
+
+  FoodHistory.find
   new FoodHistory({
     _id: id
   }).save(err => {
     if (err) {
       console.log("error", err);
     }
-    console.log("Created User Food History");
   });
 };
 

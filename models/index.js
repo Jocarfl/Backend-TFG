@@ -7,5 +7,6 @@ db.url = dbConfig.url;
 db.user = require("./user.model");
 db.role = require("./role.model");
 db.foodhistory = require("./food-history.model");
+db.gamification = require("./gamification.model");
 db.ROLES = ["user", "moderator", "admin"];
 module.exports = db;

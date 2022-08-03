@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const User = mongoose.model(
+const Badge = mongoose.model(
   "Badge",
   new mongoose.Schema({
     name: {
@@ -19,4 +19,4 @@ const User = mongoose.model(
   })
   
 );
-module.exports = User;
+module.exports = Badge;

@@ -2,15 +2,19 @@ const db = require("../models");
 const User = db.user;
 
 
-exports.getRecomendacionesDelPaciente = (req, res) => {
+exports.getRecomendacionesDelPacientePorCompletados = (req, res) => {
   User.findOne({
       _id: req.query._id
   }, function (err, user) {
       var recomendacionesMap = [];
       if (user) {
           user.recomendations.forEach(function (data) {
+              if(data.completed != true){                
+                recomendacionesMap.unshift(data);
+              }else{
+                recomendacionesMap.push(data);
+              }
               
-              recomendacionesMap.push(data);
               });
       }
       if (err) return res.status(500).send({error: err});

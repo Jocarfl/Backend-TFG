@@ -1,5 +1,7 @@
 const { authJwt } = require("../middlewares");
 const controller = require("../controllers/user.controller");
+const gamification = require("../controllers/gamification.controller");
+
 module.exports = function(app) {
   app.use(function(req, res, next) {
     res.header(
@@ -21,7 +23,11 @@ module.exports = function(app) {
     controller.adminBoard
   );*/
 
-  app.get("/api/user/getRecomendacionesDelPaciente", controller.getRecomendacionesDelPaciente);
+  app.get("/api/user/getRecomendacionesDelPaciente", controller.getRecomendacionesDelPacientePorCompletados);
 
   app.post("/api/user/marcarRecomendacionComoCompletada", controller.marcarRecomendacionComoCompletada);
+  
+  app.post("/api/user/sumarPuntuacionAUsuarioPorElemento", gamification.sumarPuntuacionAUsuarioPorElemento);
+
+  app.get("/api/user/getInfoGamificacionPorId", gamification.getInfoGamificacionPorId);
 };

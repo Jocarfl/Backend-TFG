@@ -4,6 +4,7 @@ const User = db.user;
 const FoodHistory = db.foodhistory;
 const Role = db.role;
 const food = require("./food.controller");
+const gamification = require("./gamification.controller");
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
@@ -61,6 +62,7 @@ exports.signup = (req, res) => {
       });
     }
     food.crearRegistroComidaPorId(user._id);
+    gamification.crearSistemaGamificadoPorIdUsuario(user._id);
   });
 };
 
