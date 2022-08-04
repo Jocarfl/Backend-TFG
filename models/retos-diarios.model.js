@@ -3,18 +3,18 @@ const mongoose = require("mongoose");
 const DailyChallenges = mongoose.model(
   "DailyChallenges",
   new mongoose.Schema({
-    name: {
+    title: {
         type : String,
         required : true
+      },
+      description:{
+        type: String,
+        required: true
       },
     level: {
       type : Number,
       required : true
-    },
-    score :{
-        type: Number,
-        required : true
-    },
+    }
   })
   
 );

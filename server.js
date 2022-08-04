@@ -2,6 +2,8 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const app = express();
+const retosDB = require("./resources/retos_diarios.json");
+const comidaDB = require("./resources/ComidaBD.json");
 
 var corsOptions = {
   origin: "http://localhost:8081"
@@ -12,7 +14,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./models");
+const { food } = require("./models");
 const Role = db.role;
+const Retos = db.retos;
+const Food = db.food;
 
 db.mongoose
   .connect(db.url, {
@@ -45,6 +50,22 @@ app.listen(PORT, () => {
 });
 
 function initial() {
+
+    Retos.estimatedDocumentCount((err,count) =>{
+      if(!err && count==0){
+        Retos.insertMany(retosDB);
+        console.log("Added Daily Challenges")
+      }
+    });
+
+    Food.estimatedDocumentCount((err,count) =>{
+      if(!err && count==0){
+        Food.insertMany(comidaDB);
+        console.log("Food Data Base")
+      }
+    });
+
+
     Role.estimatedDocumentCount((err, count) => {
       if (!err && count === 0) {
         new Role({

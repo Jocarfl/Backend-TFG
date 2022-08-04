@@ -1,6 +1,7 @@
 const config = require("../config/auth.config");
 const db = require("../models");
 const Gamification = db.gamification;
+const Retos = db.retos;
 
 
 exports.crearSistemaGamificadoPorIdUsuario = (id) => {
@@ -73,5 +74,19 @@ exports.getInfoGamificacionPorId = (req,res) => {
         if (err) return res.status(500).send({error: err});
         if (!req.query._id) return res.status(404).send("Id Not found.");
         return res.status(200).send(doc);  
+    });
+}
+
+exports.getRetosDiariosSegunNivel = (req,res) => {
+    Gamification.findOne({_id : req.query._id}, function(err, doc) {
+        
+        Retos.aggregate([
+            {$match: {level: 1}},
+            {$sample:{size:3}}
+        ], function(err,doc) {
+        if (err) return res.status(500).send({error: err});
+        if (!doc) return res.status(404).send("Id Not found.");
+        return res.status(200).send(doc); 
+        })    
     });
 }

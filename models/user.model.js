@@ -33,7 +33,6 @@ const User = mongoose.model(
     type: String,
     required: true
   },
-
   height: {
       type: Number,
       required: true
@@ -42,7 +41,8 @@ const User = mongoose.model(
       type: Number
   },
   ideal_weight: {
-      type: Number
+      min: String,
+      max: String,
   },
   id_mod:{
     type: mongoose.Schema.Types.ObjectId
