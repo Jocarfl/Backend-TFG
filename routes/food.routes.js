@@ -1,4 +1,4 @@
-const { authJwt } = require("../middlewares");
+const { authJwt, verifyOneFoodAtDay } = require("../middlewares");
 const controller = require("../controllers/food.controller");
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -9,6 +9,6 @@ module.exports = function(app) {
     next();
   });
 
-  app.post("/api/food/insertFoodRegistration", controller.insertarComidaDiariaPorId);
+  app.post("/api/food/insertFoodRegistration", [verifyOneFoodAtDay] , controller.insertarComidaDiariaPorId);
   
 };

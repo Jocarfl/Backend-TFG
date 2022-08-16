@@ -8,14 +8,9 @@ exports.getRegistroComidaDePacientePorFecha = (req, res) => {
         var r = new Date(req.query.date);
         var rm = r.getMonth() - 1;
         var rd = r.getDate() ;
-        var d = v
-            .date
-            .getFullYear() + "-" + v
-            .date
-            .getMonth() + "-" + v
-            .date
-            .getDate();
+        var d = v.date.getFullYear() + "-" + v.date.getMonth() + "-" + v.date.getDate();
         var nr = r.getFullYear() + "-" + rm + "-" + rd;
+
 
         return d == nr;
     }
@@ -24,11 +19,10 @@ exports.getRegistroComidaDePacientePorFecha = (req, res) => {
         _id: req.query._id
     }, function (err, doc) {
         if (doc && req.query.date) {
-            const date = doc.data
-                .find(checkDate);
-            return res
-                .status(200)
-                .send(date);
+            const date = doc.data.find(checkDate);
+            
+            return res.status(200).send(date);
+                
         }
         if (err) 
             return res

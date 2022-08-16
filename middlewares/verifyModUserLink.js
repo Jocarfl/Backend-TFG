@@ -8,6 +8,11 @@ verifyUserRole = (req, res, next) => {
         res.status(500).send({ message: err });
         return;
       }
+      if (!user) {
+        res.status(500).send({ message: "No existe el DNI" });
+        return;
+      }
+      if(user){
       Role.find(
         {
           _id: { $in: user.roles }
@@ -28,6 +33,8 @@ verifyUserRole = (req, res, next) => {
           return;
         }
       );
+    }
+    
     });
   };
 

@@ -1,4 +1,4 @@
-const { authJwt } = require("../middlewares");
+const { authJwt,verifyOneFoodAtDay } = require("../middlewares");
 const controller = require("../controllers/user.controller");
 const gamification = require("../controllers/gamification.controller");
 
@@ -34,6 +34,8 @@ module.exports = function(app) {
   app.get("/api/user/getUltimosPesosUsuario", controller.getUltimosPesosUsuario);
 
   app.get("/api/user/getRetosDiariosSegunNivel", gamification.getRetosDiariosSegunNivel);
+
+  app.get("/api/user/getClasificacionPorPuntos", gamification.getClasificacionPorPuntos);
 
   
 };
