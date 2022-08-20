@@ -10,5 +10,6 @@ db.foodhistory = require("./food-history.model");
 db.gamification = require("./gamification.model");
 db.retos = require("./retos-diarios.model");
 db.food = require("./food.model");
+db.activity = require("./activity.model");
 db.ROLES = ["user", "moderator", "admin"];
 module.exports = db;

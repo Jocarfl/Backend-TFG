@@ -37,5 +37,7 @@ module.exports = function(app) {
 
   app.get("/api/user/getClasificacionPorPuntos", gamification.getClasificacionPorPuntos);
 
+  app.get("/api/user/getActividadesRecientes", gamification.getActividadesRecientes);
+
   
 };

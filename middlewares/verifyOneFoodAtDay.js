@@ -36,8 +36,7 @@ verifyOneFoodAtDay = (req, res, next) => {
         else{
             next();
             return;
-        }
-        
+        }    
       }
     
     });

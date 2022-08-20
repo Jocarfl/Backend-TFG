@@ -2,7 +2,8 @@ const config = require("../config/auth.config");
 const db = require("../models");
 const Gamification = db.gamification;
 const Retos = db.retos;
-
+const Activity = db.activity;
+const User = db.user;
 
 exports.crearSistemaGamificadoPorIdUsuario = (id) => {
     new Gamification({
@@ -18,6 +19,17 @@ exports.crearSistemaGamificadoPorIdUsuario = (id) => {
     });
   };
 
+  function insertarNuevaActividad(actividad) {
+    const nuevaActividad = new Activity({
+        id_user: actividad._id,
+        user: actividad.usuario,
+        description: actividad.description
+    });
+
+    nuevaActividad.save();
+    
+  }
+
   function controladorDeNivelesGamificacion (userGamInfo){
     
     const niveles = 10;
@@ -25,15 +37,28 @@ exports.crearSistemaGamificadoPorIdUsuario = (id) => {
     const factorPuntos = 1.5;
 
     for(i=1;i<niveles;i++){
-
         if(userGamInfo.level == i){
             var limitePuntos = puntuaciónLimiteInicial;
             if(userGamInfo.score >= limitePuntos){
                 const puntosRestantes = userGamInfo.score - limitePuntos;
+                
                 Gamification.findOneAndUpdate({_id : userGamInfo._id},{
                     $inc: { level: 1 },
                     $set: { score: puntosRestantes , limit_score: limitePuntos * factorPuntos }
-                }, function (err,doc) { });
+                },{new: true}, function (err,doc) {
+                    
+                        User.findOne({_id: userGamInfo._id }, function (err,user) {
+                        const actividad = {
+                            _id: userGamInfo._id,
+                            usuario: user.first_name+" "+user.second_name,
+                            description: user.first_name+ " ha subido a nivel "+userGamInfo.level+". A que esperas?"
+                        }
+
+                        insertarNuevaActividad(actividad);
+
+                    })
+
+                 });
             }
         }
         puntuaciónLimiteInicial = puntuaciónLimiteInicial * factorPuntos;
@@ -59,7 +84,7 @@ exports.sumarPuntuacionAUsuarioPorElemento = (req,res) => {
 
     Gamification.findOneAndUpdate( {_id:req.body._id},
         {
-            $inc: { score: calcularPuntos() }
+            $inc: { score: calcularPuntos() , weekly_score: calcularPuntos() }
         },{new: true}, function(err,doc) {
         controladorDeNivelesGamificacion(doc);
         if (err) return res.status(500).send({error: err});
@@ -92,16 +117,44 @@ exports.getRetosDiariosSegunNivel = (req,res) => {
 }
 
 
-exports.getClasificacionPorPuntos = (req,res) =>{
+exports.getActividadesRecientes = (req,res) => {
+    Activity.find( 
+        function (err,doc) {
+            var actividadesMap = [];
+            var count = 0;
+            if(doc){       
+                doc.forEach(function (data) {
+                    if(count<3){
+                        actividadesMap.unshift(data);
+                    }    
+                      count++;
+                  });   
+            }
+            if (err) return res.status(500).send({error: err});
+            if (!doc) return res.status(404).send("No activity");
+            return res.status(200).send(actividadesMap); 
+         })
+}
 
+
+exports.getClasificacionPorPuntos = (req,res) =>{
     Gamification.aggregate( 
         [
-            { $sort : { score : 1 } }
-         ], function (err,doc) {
+            { $sort : { score : -1 } }
+        ], function (err,doc) {
+            var clasiMap = [];
+            var count = 0;
+            if(doc){       
+                doc.forEach(function (data) {
+                    if(count<5){
+                        data.clasi = count + 1;
+                        clasiMap.unshift(data);
+                    }    
+                      count++;
+                  });   
+            }
             if (err) return res.status(500).send({error: err});
             if (!doc) return res.status(404).send("No users");
-            return res.status(200).send(doc); 
+            return res.status(200).send(clasiMap); 
          })
-
-
 }

@@ -28,12 +28,16 @@ exports.getUltimosPesosUsuario = (req, res) => {
       _id: req.query._id
   }, function (err, user) {
       var pesoMap = [];
+      var count = 0;
       if (user) {
-          user.weight_history.forEach(function (data) {
 
-                  pesoMap.push(data);
+          user.weight_history.reverse().forEach(function (data) {
+                if(count<7){
+                    pesoMap.unshift(data);
+                }    
+                  count++;
               });
-      }
+            }
       if (err) 
           return res.status(500).send({error: err});
       if (!req.query._id) 
