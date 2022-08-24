@@ -6,6 +6,7 @@ const Gamification = mongoose.model(
   new mongoose.Schema({
     _id: {
         type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
         required : true
     },
     level: {

@@ -106,20 +106,6 @@ exports.getInfoGamificacionPorId = (req,res) => {
     });
 }
 
-exports.getRetosDiariosSegunNivel = (req,res) => {
-    Gamification.findOne({_id : req.query._id}, function(err, doc) {
-        
-        Retos.aggregate([
-            {$match: {level: 1}},
-            {$sample:{size:3}}
-        ], function(err,doc) {
-        if (err) return res.status(500).send({error: err});
-        if (!doc) return res.status(404).send("Id Not found.");
-        return res.status(200).send(doc); 
-        })    
-    });
-}
-
 exports.getRetosDiariosDelUsuario = (req,res) => {
     
     function insertarRetosDelDiaSegunElNivelDeUsuario(id) {
@@ -207,7 +193,7 @@ exports.getActividadesRecientes = (req,res) => {
          })
 }
 
-
+/*
 exports.getClasificacionPorPuntos = (req,res) =>{
     Gamification.aggregate( 
         [
@@ -215,7 +201,12 @@ exports.getClasificacionPorPuntos = (req,res) =>{
         ], function (err,doc) {
             var clasiMap = [];
             var count = 0;
-            if(doc){       
+            if(doc){ 
+                
+                for (let i = 0; i < doc.length; i++) {
+                    
+                }
+                
                 doc.forEach(function (data) {
                     if(count<5){
                         data.clasi = count + 1;
@@ -228,4 +219,31 @@ exports.getClasificacionPorPuntos = (req,res) =>{
             if (!doc) return res.status(404).send("No users");
             return res.status(200).send(clasiMap); 
          })
+}*/
+
+
+exports.getClasificacionPorPuntos = (req,res) =>{
+    Gamification.find({}).sort({weekly_score : "asc"}).limit(4).populate('_id').exec(function(err,doc){
+        var clasiMap = [];
+            var count = 5;
+            if(doc){ 
+
+                doc.forEach(function (data) {                                    
+                        const newData = {
+                            clasi : count -1,
+                            _id : data._id._id,
+                            weekly_score : data.weekly_score,
+                            user: data._id.username
+
+                        }
+
+                        clasiMap.unshift(newData);
+                     
+                        count--;
+                  });   
+            }
+            if (err) return res.status(500).send({error: err});
+            if (!doc) return res.status(404).send("No users");
+            return res.status(200).send(clasiMap); 
+    });
 }
