@@ -39,5 +39,9 @@ module.exports = function(app) {
 
   app.get("/api/user/getActividadesRecientes", gamification.getActividadesRecientes);
 
+  app.get("/api/user/getRetosDiariosDelUsuario", gamification.getRetosDiariosDelUsuario);
+
+  app.post("/api/user/marcarRetoComoCompletado", gamification.marcarRetoComoCompletado);
+
   
 };

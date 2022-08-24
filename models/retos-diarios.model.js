@@ -14,7 +14,10 @@ const DailyChallenges = mongoose.model(
     level: {
       type : Number,
       required : true
-    }
+    },
+    completed:{
+      type : Boolean,
+      required : true}
   })
   
 );

@@ -10,6 +10,10 @@ exports.crearSistemaGamificadoPorIdUsuario = (id) => {
       _id: id,
       level: 1,
       score:0,
+      retos_diarios:{
+        lista_retos : [],
+        date : new Date()
+      },
       limit_score: 50,
       weekly_score:0,
     }).save(err => {
@@ -115,6 +119,73 @@ exports.getRetosDiariosSegunNivel = (req,res) => {
         })    
     });
 }
+
+exports.getRetosDiariosDelUsuario = (req,res) => {
+    
+    function insertarRetosDelDiaSegunElNivelDeUsuario(id) {
+        Gamification.findOne({_id : id}, function(err,doc) {
+            Retos.aggregate([
+                {$match: {level: 1}},
+                {$sample:{size:3}}
+            ], function(err,doc) {
+                if(doc){
+                    Gamification.findOneAndUpdate({_id : id}, {
+                        $set: { retos_diarios: { lista_retos: doc, date : new Date()} }
+                    }, function (err, doc1) {})
+                }           
+            }) 
+            
+        })
+    }
+
+    function compararFechaDeHoyConLaFechaDeLosRetos(incomingData) {
+        var todayDate = new Date();
+        var todayDateDay = todayDate.getDate();
+        var todayDateMonth = todayDate.getMonth();
+        var todayDateYear = todayDate.getFullYear();
+
+        var normIncomingData = incomingData.getFullYear() + "-" + incomingData.getMonth() + "-" + incomingData.getDate();
+        var normTodayDate = todayDateYear + "-" + todayDateMonth + "-" + todayDateDay;
+
+        return normIncomingData == normTodayDate;
+    }
+
+    
+    Gamification.findOne({_id : req.query._id}, function(err, doc) {
+        if(doc){
+            const date = compararFechaDeHoyConLaFechaDeLosRetos(doc.retos_diarios.date);
+            if(doc.retos_diarios.lista_retos.length <= 0 || !date){
+                insertarRetosDelDiaSegunElNivelDeUsuario(req.query._id);
+                return res.status(200).send(doc.retos_diarios.lista_retos);
+            }
+            return res.status(200).send(doc.retos_diarios.lista_retos);
+        }   
+    });
+}
+
+exports.marcarRetoComoCompletado = (req, res) => {
+
+    Gamification.findOneAndUpdate({
+        _id: req.body._id,
+        "retos_diarios.lista_retos._id": req.body.idReto
+    }, {
+        $set: {
+          "retos_diarios.lista_retos.$.completed":true
+         }}
+         , function (err, doc) {
+        if (err) 
+            return res
+                .status(500)
+                .send(err);
+        if (!doc) 
+            return res
+                .status(404)
+                .send("Id Not found.");
+        return res
+            .status(200)
+            .send({message :'Succesfully saved.'});
+    });
+  }
 
 
 exports.getActividadesRecientes = (req,res) => {
