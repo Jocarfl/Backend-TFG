@@ -37,6 +37,7 @@ exports.insertarPesoPacienteEnHistorial = (req, res) => {
     var d = new Date();
     var date = d.getFullYear() + "-" + d.getMonth() + "-" + d.getDate();
 
+
     User.findOneAndUpdate({
         _id: req.body._id
     }, {

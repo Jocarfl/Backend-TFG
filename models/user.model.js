@@ -41,8 +41,8 @@ const User = mongoose.model(
       type: Number
   },
   ideal_weight: {
-      min: String,
-      max: String,
+      min: Number,
+      max: Number,
   },
   id_mod:{
     type: mongoose.Schema.Types.ObjectId

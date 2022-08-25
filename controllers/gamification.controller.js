@@ -52,10 +52,11 @@ exports.crearSistemaGamificadoPorIdUsuario = (id) => {
                 },{new: true}, function (err,doc) {
                     
                         User.findOne({_id: userGamInfo._id }, function (err,user) {
+                            const nivel = userGamInfo.level+1;
                         const actividad = {
                             _id: userGamInfo._id,
                             usuario: user.first_name+" "+user.second_name,
-                            description: user.first_name+ " ha subido a nivel "+userGamInfo.level+". A que esperas?"
+                            description: user.first_name+ " ha subido a nivel "+nivel+". A que esperas?"
                         }
 
                         insertarNuevaActividad(actividad);
@@ -197,7 +198,6 @@ exports.getClasificacionPorPuntos = (req,res) =>{
         var clasiMap = [];
             var count = 5;
             if(doc){ 
-
                 doc.forEach(function (data) {                                    
                         const newData = {
                             clasi : count -1,

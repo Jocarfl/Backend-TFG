@@ -9,6 +9,32 @@ var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
 exports.signup = (req, res) => {
+
+  function calculoRangoPesoIdeal(altura,genero) {
+    if(genero == "masculino"){
+      var pesoIdeal = ((((altura-152)*2.2)/2.45)+50);
+
+      var pesoIdealMin = Math.abs(((pesoIdeal*0.1)-pesoIdeal));
+      var pesoIdealMax = Math.abs(((pesoIdeal*0.1)+pesoIdeal));
+
+      const rangoPeso = {max: pesoIdealMax, min: pesoIdealMin}
+
+      return rangoPeso;
+
+    }
+
+    if(genero == "femenino"){
+      pesoIdeal = ((((altura-152)*2.2)/2.45)+45);
+
+      var pesoIdealMin = Math.abs(((pesoIdeal*0.1)-pesoIdeal));
+      var pesoIdealMax = Math.abs(((pesoIdeal*0.1)+pesoIdeal));
+
+      const rangoPeso = {max: pesoIdealMax, min: pesoIdealMin}
+
+      return rangoPeso;
+    }
+  }
+
   const user = new User({
     username: req.body.username,
     email: req.body.email,
@@ -18,8 +44,13 @@ exports.signup = (req, res) => {
     dni: req.body.dni,
     born_date: req.body.born_date,
     gender: req.body.gender,
-    height : req.body.height
+    height : req.body.height,
+    ideal_weight: {
+      min: calculoRangoPesoIdeal(req.body.height,req.body.gender).min,
+      max: calculoRangoPesoIdeal(req.body.height,req.body.gender).max
+    }
   });
+
   user.save((err, user) => {
     if (err) {
       res.status(500).send({ message: err });
