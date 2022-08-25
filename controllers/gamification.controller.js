@@ -175,51 +175,21 @@ exports.marcarRetoComoCompletado = (req, res) => {
 
 
 exports.getActividadesRecientes = (req,res) => {
-    Activity.find( 
-        function (err,doc) {
-            var actividadesMap = [];
-            var count = 0;
+    Activity.find({}).sort({_id:"desc"}).limit(4).exec(function(err,doc) {
+        var actividadesMap = [];
+
             if(doc){       
                 doc.forEach(function (data) {
-                    if(count<3){
-                        actividadesMap.unshift(data);
-                    }    
-                      count++;
+                    
+                        actividadesMap.push(data);                       
+                      
                   });   
             }
             if (err) return res.status(500).send({error: err});
             if (!doc) return res.status(404).send("No activity");
             return res.status(200).send(actividadesMap); 
-         })
+    });
 }
-
-/*
-exports.getClasificacionPorPuntos = (req,res) =>{
-    Gamification.aggregate( 
-        [
-            { $sort : { score : -1 } }
-        ], function (err,doc) {
-            var clasiMap = [];
-            var count = 0;
-            if(doc){ 
-                
-                for (let i = 0; i < doc.length; i++) {
-                    
-                }
-                
-                doc.forEach(function (data) {
-                    if(count<5){
-                        data.clasi = count + 1;
-                        clasiMap.unshift(data);
-                    }    
-                      count++;
-                  });   
-            }
-            if (err) return res.status(500).send({error: err});
-            if (!doc) return res.status(404).send("No users");
-            return res.status(200).send(clasiMap); 
-         })
-}*/
 
 
 exports.getClasificacionPorPuntos = (req,res) =>{
@@ -234,11 +204,9 @@ exports.getClasificacionPorPuntos = (req,res) =>{
                             _id : data._id._id,
                             weekly_score : data.weekly_score,
                             user: data._id.username
-
                         }
 
-                        clasiMap.unshift(newData);
-                     
+                        clasiMap.unshift(newData);                    
                         count--;
                   });   
             }
