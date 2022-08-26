@@ -31,7 +31,7 @@ module.exports = function(app) {
 
   app.get("/api/user/getInfoGamificacionPorId", gamification.getInfoGamificacionPorId);
 
-  app.get("/api/user/getUltimosPesosUsuario", controller.getUltimosPesosUsuario);
+  app.get("/api/user/getUltimosPesosUsuario", controller.getUltimosPesosUsuarioYRangoPesoIdeal);
 
   app.get("/api/user/getClasificacionPorPuntos", gamification.getClasificacionPorPuntos);
 

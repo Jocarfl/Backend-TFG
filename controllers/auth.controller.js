@@ -133,6 +133,7 @@ exports.signin = (req, res) => {
         email: user.email,
         roles: authorities,
         gender: user.gender,
+        user_name: user.first_name +" "+ user.second_name ,
         accessToken: token
       });
     });
