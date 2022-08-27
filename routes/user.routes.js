@@ -39,6 +39,8 @@ module.exports = function(app) {
 
   app.get("/api/user/getRetosDiariosDelUsuario", gamification.getRetosDiariosDelUsuario);
 
+  app.post("/api/user/insertFoodRegistration", [verifyOneFoodAtDay] , controller.insertarComidaDiariaPorId);
+
   app.post("/api/user/marcarRetoComoCompletado", gamification.marcarRetoComoCompletado);
 
   
