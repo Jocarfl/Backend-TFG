@@ -14,7 +14,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 const db = require("./models");
-const { food } = require("./models");
 const Role = db.role;
 const Retos = db.retos;
 const Food = db.food;
@@ -39,7 +38,6 @@ app.get("/", (req, res) => {
 
 require('./routes/auth.routes')(app);
 require('./routes/user.routes')(app);
-require('./routes/food.routes')(app);
 require('./routes/admin.routes')(app);
 require('./routes/mod.routes')(app);
 

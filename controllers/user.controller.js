@@ -38,8 +38,7 @@ exports.getRecomendacionesDelPacientePorCompletados = (req, res) => {
                 recomendacionesMap.unshift(data);
               }else{
                 recomendacionesMap.push(data);
-              }
-              
+              }         
               });
       }
       if (err) return res.status(500).send({error: err});
