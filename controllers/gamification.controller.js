@@ -198,10 +198,10 @@ exports.getClasificacionPorPuntos = (req,res) =>{
         var clasiMap = [];
             var count = 5;
             if(doc){ 
-                doc.forEach(function (data) {                                    
+                doc.forEach(function (data) {       
+                                               
                         const newData = {
                             clasi : count -1,
-                            _id : data._id._id,
                             weekly_score : data.weekly_score,
                             user: data._id.username
                         }

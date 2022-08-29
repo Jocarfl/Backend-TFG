@@ -16,7 +16,9 @@ module.exports = function(app) {
 
   app.get("/api/admin/getAllModerators", controller.getAllModerators);
 
-  app.post("/api/admin/vincularUsuarioConMod",[verifyModUserLink.verifyUserRole,authJwt.verifyToken,authJwt.isAdmin] , controller.vincularUsuarioConMod);
+  //app.post("/api/admin/vincularUsuarioConMod",[verifyModUserLink.verifyUserRole,authJwt.verifyToken,authJwt.isAdmin] , controller.vincularUsuarioConMod);
+
+  app.post("/api/admin/vincularUsuarioConMod",[verifyModUserLink.verifyUserRole] , controller.vincularUsuarioConMod);
 
   app.get("/api/admin/getPacientesVinculadosAlModerador", controller.getPacientesVinculadosAlModerador);
   

@@ -25,10 +25,6 @@ module.exports = function(app) {
 
   app.get("/api/user/getRecomendacionesDelPaciente", controller.getRecomendacionesDelPacientePorCompletados);
 
-  app.post("/api/user/marcarRecomendacionComoCompletada", controller.marcarRecomendacionComoCompletada);
-  
-  app.post("/api/user/sumarPuntuacionAUsuarioPorElemento", gamification.sumarPuntuacionAUsuarioPorElemento);
-
   app.get("/api/user/getInfoGamificacionPorId", gamification.getInfoGamificacionPorId);
 
   app.get("/api/user/getUltimosPesosUsuario", controller.getUltimosPesosUsuarioYRangoPesoIdeal);
@@ -38,6 +34,12 @@ module.exports = function(app) {
   app.get("/api/user/getActividadesRecientes", gamification.getActividadesRecientes);
 
   app.get("/api/user/getRetosDiariosDelUsuario", gamification.getRetosDiariosDelUsuario);
+
+  
+
+  app.post("/api/user/marcarRecomendacionComoCompletada", controller.marcarRecomendacionComoCompletada);
+  
+  app.post("/api/user/sumarPuntuacionAUsuarioPorElemento", gamification.sumarPuntuacionAUsuarioPorElemento);
 
   app.post("/api/user/insertFoodRegistration", [verifyOneFoodAtDay] , controller.insertarComidaDiariaPorId);
 

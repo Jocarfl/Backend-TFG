@@ -3,7 +3,6 @@ const User = db.user;
 const FoodHistory = db.foodhistory;
 
 exports.crearRegistroComidaPorId = (id) => {
-
   FoodHistory.find
   new FoodHistory({
     _id: id

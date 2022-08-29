@@ -15,11 +15,11 @@ module.exports = function(app) {
 
   app.get("/api/mod/getRegistroComidaDePacientePorFecha", controller.getRegistroComidaDePacientePorFecha);
 
-  app.get("/api/mod/getHistorialPesoPaciente", controller.getHistorialPesoPaciente);
-
   app.post("/api/mod/insertarPesoPacienteEnHistorial", controller.insertarPesoPacienteEnHistorial);
 
   app.post("/api/mod/insertarRecomendacionPaciente", controller.insertarRecomendacionPaciente);
+
+  app.get("/api/mod/getHistorialPesoPaciente", controller.getHistorialPesoPaciente);
 
   app.get("/api/mod/getRecomendacionesDelPaciente", controller.getRecomendacionesDelPaciente);
 

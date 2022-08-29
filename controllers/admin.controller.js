@@ -1,3 +1,4 @@
+const { query } = require("express");
 const { user } = require("../models");
 const db = require("../models");
 const User = db.user;
@@ -38,7 +39,7 @@ exports.vincularUsuarioConMod = (req, res) => {
     }}, function(err, doc) {
         if (err) return res.status(500).send({error: err}); 
         if (!doc) return res.status(404).send({ message: "User not found" });
-        return res.status(200).send({ message: "Vinculado con éxito" });
-        
+        if(doc) return res.status(200).send({ message: "Vinculado con éxito" });
+             
     });
 }
