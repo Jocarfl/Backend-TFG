@@ -1,20 +1,38 @@
 [
     {
         "title":"Caminar",
-        "description":" Caminar 5000 pasos",
-        "level": "1",
-        "completed": false
-    },
-    {
-        "title":"Comer",
-        "description":" Comer 2 piezas de fruta ",
+        "description":"Caminar 1000 pasos",
         "level": "1",
         "completed": false
     },
     {
         "title":"Actividad",
-        "description":" Realizar cualquier deporte",
+        "description":"Sube y baja las escaleras",
         "level": "1",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Realiza 5 sentadillas",
+        "level": "1",
+        "completed": false
+    },
+    {
+        "title":"Caminar",
+        "description":"Caminar 2000 pasos",
+        "level": "2",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Sube y baja las escaleras 2 veces",
+        "level": "2",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Realiza 10 sentadillas",
+        "level": "2",
         "completed": false
     }
 ]

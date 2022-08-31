@@ -1,6 +1,7 @@
 const db = require("../models");
 const User = db.user;
 const FoodHistory = db.foodhistory;
+const Food = db.food;
 
 exports.crearRegistroComidaPorId = (id) => {
   FoodHistory.find
@@ -96,4 +97,15 @@ exports.marcarRecomendacionComoCompletada = (req, res) => {
           .status(200)
           .send({message :'Succesfully saved.'});
   });
+}
+
+exports.getAllFood = (req, res) => {
+  Food.find({}, function(err, doc) {
+      var foodMap = [];
+      doc.forEach(function(food) {
+            foodMap.push(food);       
+      });
+      if (err) return res.send(500, {error: err});
+      return res.status(200).send(foodMap);  
+    });
 }

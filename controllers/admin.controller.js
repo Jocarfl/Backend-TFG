@@ -8,15 +8,22 @@ const Role = db.role;
 exports.getAllModerators = (req, res) => {
     User.find({}, function(err, users) {
         var userMap = [];
-
-        users.forEach(function(user) {
-            if(user.roles == "62b8ab283bfd083a48f45c7b") //Id del rol moderador
-            {
-                userMap.push(user);
-            }          
+        if(users){
+            Role.find({name:"moderator"}, function (err, role) {
+                users.forEach(function(user) {
+                    if(user.roles == role._id) //Id del rol moderador
+                    {
+                        userMap.push(user);
+                    }
+                    
+                    
+            }); 
+            
+            if (err) return res.send(500, {error: err});
+            return res.status(200).send(userMap);               
         });
-        if (err) return res.send(500, {error: err});
-        return res.send(userMap);  
+        }
+        
       });
 }
 

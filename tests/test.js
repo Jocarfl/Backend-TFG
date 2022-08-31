@@ -735,6 +735,25 @@ describe("Test GET /getRetosDiariosDelUsuario", () => {
 
 });
 
+describe("Test GET /getAllFood", () => {
+  
+  test("Debe devolver: 200 status code", async () => {
+
+    const response = await request(app).get("/api/user/getAllFood").send();
+    expect(response.statusCode).toBe(200);
+    
+  });
+
+
+  test("Debe devolver una lista : Array List", async () => {
+
+    const response = await request(app).get("/api/user/getAllFood").send();
+    expect(response.body).toBeInstanceOf(Array);
+    
+  });
+});
+
+
 describe("Test POST /marcarRecomendacionComoCompletada", () => {
   
   test("Debe devolver: 200 status code", async () => {

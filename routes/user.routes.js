@@ -35,6 +35,8 @@ module.exports = function(app) {
 
   app.get("/api/user/getRetosDiariosDelUsuario", gamification.getRetosDiariosDelUsuario);
 
+  app.get("/api/user/getAllFood", controller.getAllFood);
+
   
 
   app.post("/api/user/marcarRecomendacionComoCompletada", controller.marcarRecomendacionComoCompletada);

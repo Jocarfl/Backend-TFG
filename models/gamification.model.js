@@ -33,21 +33,7 @@ const Gamification = mongoose.model(
           completed: Boolean  
         }],
       date: Date,
-    },
-    badges: [
-      {     
-        name: {
-          type: String,
-          required: true
-      },
-      level: {
-          type: Number,
-          required: true
-      }
-
-      }
-    ]
-
+    }
   })
   
 );
