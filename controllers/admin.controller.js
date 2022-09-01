@@ -9,17 +9,19 @@ exports.getAllModerators = (req, res) => {
     User.find({}, function(err, users) {
         var userMap = [];
         if(users){
-            Role.find({name:"moderator"}, function (err, role) {
+            console.log()
+            Role.findOne({name:"moderator"}, function (err, role) {    
+                const rol = role._id;         
                 users.forEach(function(user) {
-                    if(user.roles == role._id) //Id del rol moderador
-                    {
+                    if(user.roles[0].toString() == rol.toString()) //Id del rol moderador
+                    {   
+                                             
                         userMap.push(user);
-                    }
-                    
-                    
-            }); 
+                    }                   
+                }); 
             
             if (err) return res.send(500, {error: err});
+       
             return res.status(200).send(userMap);               
         });
         }

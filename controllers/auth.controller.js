@@ -133,7 +133,11 @@ exports.signin = (req, res) => {
         roles: authorities,
         gender: user.gender,
         user_name: user.first_name +" "+ user.second_name ,
-        accessToken: token
+        accessToken: token,
+        ideal_weight: {
+          min:user.ideal_weight.min,
+          max:user.ideal_weight.max
+        }
       });
     });
 };
