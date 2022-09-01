@@ -124,3 +124,16 @@ exports.getRecomendacionesDelPaciente = (req, res) => {
         return res.status(200).send(recomendacionesMap);
     });
 }
+
+
+exports.getPacientesVinculadosAlModerador = (req, res) => {
+    User.find({id_mod : req.query._id}, function(err, users) {
+        var userMap = [];
+        users.forEach(function(user) {
+                userMap.push(user);         
+        });
+        if (err) return res.status(500).send({error: err});
+        if (!req.query._id) return res.status(404).send("Id Not found.");
+        return res.status(200).send(userMap);  
+      });
+    }

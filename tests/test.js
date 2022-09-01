@@ -6,6 +6,21 @@ const Gamification = db.gamification;
 const FoodHistories = db.foodhistory;
 
 
+/*
+
+ANTES DE INICIALIZAR LOS TESTS IR A LA CARPETA /ROUTES  Y ENTRAR EN LOS SCRIPTS:
+
+ADMIN.ROUTES.JS
+
+AUTH.ROUTES.JS
+
+MOD.ROUTES.JS
+
+USER.ROUTES.JS
+
+*/
+
+
 //-------------------------------------------
 //
 // TESTS RUTAS AUTENTICACIÓN

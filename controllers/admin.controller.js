@@ -14,8 +14,7 @@ exports.getAllModerators = (req, res) => {
                 const rol = role._id;         
                 users.forEach(function(user) {
                     if(user.roles[0].toString() == rol.toString()) //Id del rol moderador
-                    {   
-                                             
+                    {                             
                         userMap.push(user);
                     }                   
                 }); 

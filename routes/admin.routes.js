@@ -1,7 +1,5 @@
 const { verifyModUserLink,authJwt } = require("../middlewares");
 const controller = require("../controllers/admin.controller");
-const { isAdmin } = require("../middlewares/authJwt");
-
 
 module.exports = function(app) {
   app.use(function(req, res, next) {
@@ -11,15 +9,31 @@ module.exports = function(app) {
     );
     next();
   });
+  
 
- // app.get("/api/admin/getAllModerators", [authJwt.verifyToken], controller.getAllModerators);
+  /*
+  -----------------------------
+  -COMENTAR PARA TESTS---------
+  ----------------------------- 
+  */
+ app.get("/api/admin/getAllModerators", [authJwt.verifyToken,authJwt.isAdmin], controller.getAllModerators);
 
+ app.post("/api/admin/vincularUsuarioConMod",[verifyModUserLink.verifyUserRole,authJwt.verifyToken,authJwt.isAdmin] , controller.vincularUsuarioConMod);
+
+ app.get("/api/admin/getPacientesVinculadosAlModerador",[authJwt.verifyToken,authJwt.isAdmin], controller.getPacientesVinculadosAlModerador);
+
+
+
+ /*
+ -----------------------------
+ -DESCOMENTAR PARA TESTS------
+ -----------------------------
   app.get("/api/admin/getAllModerators", controller.getAllModerators);
-
-  //app.post("/api/admin/vincularUsuarioConMod",[verifyModUserLink.verifyUserRole,authJwt.verifyToken,authJwt.isAdmin] , controller.vincularUsuarioConMod);
 
   app.post("/api/admin/vincularUsuarioConMod",[verifyModUserLink.verifyUserRole] , controller.vincularUsuarioConMod);
 
   app.get("/api/admin/getPacientesVinculadosAlModerador", controller.getPacientesVinculadosAlModerador);
+
+  */
   
 };

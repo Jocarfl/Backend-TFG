@@ -11,13 +11,13 @@ module.exports = function(app) {
     next();
   });
 
+  /*
+  -----------------------------
+  -COMENTAR PARA TESTS---------
+  ----------------------------- 
+  */
   app.post(
-    "/api/auth/signup",
-    [
-      verifySignUp.checkDuplicateUsernameOrEmail,
-      verifySignUp.checkDuplicateDNI,
-      verifySignUp.checkRolesExisted
-    ], 
+    "/api/auth/signup", [verifySignUp.checkDuplicateUsernameOrEmail,verifySignUp.checkDuplicateDNI,verifySignUp.checkRolesExisted,authJwt.verifyToken,authJwt.isAdmin], 
     controller.signup
 
   );
@@ -25,4 +25,21 @@ module.exports = function(app) {
   app.post("/api/auth/signin",
     controller.signin
     );
+    
+
+    /*
+ -----------------------------
+ -DESCOMENTAR PARA TESTS------
+ -----------------------------
+    app.post(
+    "/api/auth/signup", [verifySignUp.checkDuplicateUsernameOrEmail,verifySignUp.checkDuplicateDNI,verifySignUp.checkRolesExisted], 
+    controller.signup
+
+  );
+
+  app.post("/api/auth/signin",
+    controller.signin
+    );
+    
+    */
 };
