@@ -9,7 +9,6 @@ exports.getAllModerators = (req, res) => {
     User.find({}, function(err, users) {
         var userMap = [];
         if(users){
-            console.log()
             Role.findOne({name:"moderator"}, function (err, role) {    
                 const rol = role._id;         
                 users.forEach(function(user) {
