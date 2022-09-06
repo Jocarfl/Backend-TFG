@@ -15,16 +15,17 @@ module.exports = function(app) {
   -COMENTAR PARA TESTS---------
   ----------------------------- 
   */ 
+ // GET REGISTRO COMIDA DE PACIENTE POR FECHA
   app.get("/api/mod/getRegistroComidaDePacientePorFecha",[authJwt.verifyToken, authJwt.isModerator], controller.getRegistroComidaDePacientePorFecha);
-
+ // GINSERTAR PESO PACIENTE EN HISTORIAL
   app.post("/api/mod/insertarPesoPacienteEnHistorial",[authJwt.verifyToken, authJwt.isModerator], controller.insertarPesoPacienteEnHistorial);
-
+// INSERTAR RECOMENDACION DEL PACIENTE
   app.post("/api/mod/insertarRecomendacionPaciente",[authJwt.verifyToken, authJwt.isModerator], controller.insertarRecomendacionPaciente);
-
+// GET HISTORIAL PESO DEL PACIENTE
   app.get("/api/mod/getHistorialPesoPaciente",[authJwt.verifyToken, authJwt.isModerator], controller.getHistorialPesoPaciente);
-
+// GET RECOMENDACIONES DEL PACIENTE
   app.get("/api/mod/getRecomendacionesDelPaciente",[authJwt.verifyToken, authJwt.isModerator], controller.getRecomendacionesDelPaciente);
-
+// GET PACIENTES VINCULADOS AL MODERADOR
   app.get("/api/mod/getPacientesVinculadosAlModerador",[authJwt.verifyToken,authJwt.isModerator], controller.getPacientesVinculadosAlModerador);
 
 
