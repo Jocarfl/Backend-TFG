@@ -21,12 +21,23 @@ USER.ROUTES.JS
 */
 
 
-//-------------------------------------------
-//
-// TESTS RUTAS AUTENTICACIÓN
-//
-//-------------------------------------------
-
+// Nuevo usuario MOD todo nuevo
+const newMod = {
+  username:"ModTest",
+  email:"Modtest@hotmail.com",
+  password:"test",
+  first_name:"test",
+  second_name:"test",
+  dni:"09682126T",
+  born_date:"10/5/2022",
+  roles:["moderator"],
+  gender:"masculino",
+  height:188,
+  ideal_weight:{
+    min:80,
+    max:85
+  },
+}
 
 // Nuevo usuario todo nuevo
 const newUser = {
@@ -97,37 +108,48 @@ const newUserRol = {
   },
 }
 
+//-------------------------------------------
+//
+// TESTS RUTAS AUTENTICACIÓN
+//
+//-------------------------------------------
 
 describe("TESTS RUTAS AUTENTICACIÓN", () => {
 
+  // REGISTRAR USUARIO
+
   describe("Test POST /signup", ()=>{
 
-
+    // REGISTRAR USUARIO NUEVO
     test("Registrar usuario nuevo: 200 status code", async () => {
 
       const response = await request(app).post("/api/auth/signup").send(newUser);
       expect(response.statusCode).toBe(200);
       
     });
-  
+    
+    // REGISTRAR USUARIO CON NOMBRE DE USUARIO EXISTENTE
     test("Registrar usuario con nombre de usuario existente: 400 status code", async () => {
       const response = await request(app).post("/api/auth/signup").send(newUser);
       expect(response.statusCode).toBe(400);
       
     });
-  
+    
+    // REGISTRAR USUARIO CON DNI EXISTENTE
     test("Registrar usuario con DNI existente: 400 status code", async () => {
       const response = await request(app).post("/api/auth/signup").send(newUserDNI);
       expect(response.statusCode).toBe(400);
    
     });
-  
+    
+    // REGISTRAR USUARIO CON EMAIL EXISTENTE
     test("Registrar usuario con Email existente: 400 status code", async () => {
       const response = await request(app).post("/api/auth/signup").send(newUserEmail);
       expect(response.statusCode).toBe(400);
    
     });
-  
+    
+    // REGISTRAR USUARIO CON ROL INEXISTENTE
     test("Registrar usuario con Rol inexistente: 400 status code", async () => {
       const response = await request(app).post("/api/auth/signup").send(newUserRol);
       expect(response.statusCode).toBe(400);
@@ -138,20 +160,25 @@ describe("TESTS RUTAS AUTENTICACIÓN", () => {
 
   });
 
+
+  // INICIAR SESIÓN
   describe("Test POST /signin", () => {
-  
+    
+    // INICIAR SESIÓN CON USUARIO EXISTENTE
     test("Iniciar sesión con usuario existente: 200 status code", async () => {
       const response = await request(app).post("/api/auth/signin").send(newUser);
       expect(response.statusCode).toBe(200);
   
     });
-  
+    
+    // INICIAR SESIÓN CORRECTAMENTE 
     test("Al iniciar sesión correctamente debe devolver token de acceso: AccesToken", async () => {
       const response = await request(app).post("/api/auth/signin").send(newUser);
       expect(response.body.accessToken).toBeDefined();
   
     });
-  
+    
+    // INICIAR SESIÓN CON USUARIO INEXISTENTE
     test("Iniciar sesión con usuario inexistente: 404 status code", async () => {
       const response = await request(app).post("/api/auth/signin").send(newUserDNI);
       expect(response.statusCode).toBe(404);
@@ -174,36 +201,19 @@ describe("TESTS RUTAS AUTENTICACIÓN", () => {
 //
 //-------------------------------------------
 
-
-// Nuevo usuario todo nuevo
-const newMod = {
-  username:"ModTest",
-  email:"Modtest@hotmail.com",
-  password:"test",
-  first_name:"test",
-  second_name:"test",
-  dni:"09682126T",
-  born_date:"10/5/2022",
-  roles:["moderator"],
-  gender:"masculino",
-  height:188,
-  ideal_weight:{
-    min:80,
-    max:85
-  },
-}
-
-
 describe("TESTS RUTAS ADMINISTRADOR", () => {
 
+  // GET TODOS LOS MODERADORES
   describe("Test GET /getAllModerators", () => {
-  
+    
+    // DEVOLVER STATUS 200
     test("Debe devolver: 200 status code", async () => {
       const response = await request(app).get("/api/admin/getAllModerators").send();
       expect(response.statusCode).toBe(200);
       
     });
 
+    // DEVOLVER ARRAY
     test("Debe devolver una lista de todos los Médicos: Array List", async () => {
       const response = await request(app).get("/api/admin/getAllModerators").send();
       expect(response.body).toBeInstanceOf(Array);
@@ -212,8 +222,10 @@ describe("TESTS RUTAS ADMINISTRADOR", () => {
 
 });
 
+// VINCULAR USUARIO CON MÉDICO
 describe("Test POST /vincularUsuarioConMod", () => {
   
+  // DEVOLVER STATUS 200
   test("Vincular DNI de paciente con médico: 200 status code", async () => {
 
 
@@ -226,6 +238,7 @@ describe("Test POST /vincularUsuarioConMod", () => {
       id_mod: ""
     }
 
+    // BUSCAR ID DEL USUARIO
     await User.findOne({username: newMod.username}).then(
       res => datos.id_mod = res._id,
       err=> console.log(err),
@@ -239,14 +252,17 @@ describe("Test POST /vincularUsuarioConMod", () => {
 
 });
 
+// GET PACIENTES VINCULADOS AL MODERADOR
 describe("Test GET /getPacientesVinculadosAlModerador", () => {
   
+  // DEVOLVER STATUS 200
   test("Debe devolver: 200 status code", async () => {
 
     const datos = {
       _id : ""
     }
- 
+    
+    // BUSCAR ID
    await User.findOne({username: newMod.username}).then(
     res => datos._id = res._id,
     err=> console.log(err),
@@ -260,12 +276,14 @@ describe("Test GET /getPacientesVinculadosAlModerador", () => {
     
   });
 
+  // DEVOLVER ARRAY 
   test("Debe devolver una lista con todos los pacientes vinculados al médico : Array List", async () => {
 
     const datos = {
       _id : ""
     }
- 
+    
+    // BUSCAR ID
    await User.findOne({username: newMod.username}).then(
     res => datos._id = res._id,
     err=> console.log(err),
@@ -293,17 +311,18 @@ describe("Test GET /getPacientesVinculadosAlModerador", () => {
 
 describe("TESTS RUTAS MODERADOR (MÉDICO)", () => {
 
+  // GET REGISTRO COMIDA DE PACIENTE POR FECHA
   describe("Test GET /getRegistroComidaDePacientePorFecha", () => {
 
-    
-  
+    // DEVOLVER STATUS 200
     test("Debe devolver: 200 status code", async () => {
 
       const datos = {
         _id : "",
         date: new Date()
       }
-   
+      
+      // BUSCAR ID
      await User.findOne({username: newUser.username}).then(
       res => datos._id = res._id,
       err => console.log(err),
@@ -314,6 +333,7 @@ describe("TESTS RUTAS MODERADOR (MÉDICO)", () => {
       
     });
 
+    //DEVOLVER JSON
     test("Debe devolver un objeto vacío de las comidas: JSON", async () => {
 
       const datos = {
@@ -321,6 +341,7 @@ describe("TESTS RUTAS MODERADOR (MÉDICO)", () => {
         date: new Date()
       }
 
+      // BUSCAR ID
       await User.findOne({username: newUser.username}).then(
         res => datos._id = res._id,
         err => console.log(err),
@@ -334,16 +355,18 @@ describe("TESTS RUTAS MODERADOR (MÉDICO)", () => {
 
 });
 
-
+// INSERTAR PESO DEL PACIENTE EN EL REGISTRO
 describe("Test POST /insertarPesoPacienteEnHistorial", () => {
   
+  //DEVOLVER STATUS 200
   test("Debe devolver: 200 status code", async () => {
 
     const datos = {
       _id : "",
       weight: 99 //peso de prueba
     }
- 
+    
+    //BUSCAR ID
    await User.findOne({username: newUser.username}).then(
     res => datos._id = res._id,
     err => console.log(err),
@@ -357,6 +380,7 @@ describe("Test POST /insertarPesoPacienteEnHistorial", () => {
 
 });
 
+// INSERTAR RECOMENDACION PACIENTE
 describe("Test POST /insertarRecomendacionPaciente", () => {
   
   test("Debe devolver: 200 status code", async () => {
@@ -382,8 +406,11 @@ describe("Test POST /insertarRecomendacionPaciente", () => {
 
 });
 
+// GET HISTORIAL DE PESO DEL PACIENTE
 describe("Test GET /getHistorialPesoPaciente", () => {
 
+
+  //STATUS 200
   test("Debe devolver: 200 status code", async () => {
 
     const datos = {
@@ -400,6 +427,7 @@ describe("Test GET /getHistorialPesoPaciente", () => {
     
   });
 
+  // ARRAY LIST
   test("Debe devolver una lista de los pesos registrados: Array List", async () => {
 
     const datos = {
@@ -414,8 +442,9 @@ describe("Test GET /getHistorialPesoPaciente", () => {
     const response = await request(app).get("/api/mod/getHistorialPesoPaciente?_id="+datos._id).send();   
     expect(response.body).toBeInstanceOf(Array);
     
-  });
+    });
 
+    // TAMAÑO = 1
   test("El tamaño de la lista debe ser igual a 1", async () => {
 
     const datos = {
@@ -434,8 +463,10 @@ describe("Test GET /getHistorialPesoPaciente", () => {
 
 });
 
+// GET RECOMENDACIONES DEL PACIENTE
 describe("Test GET /getRecomendacionesDelPaciente", () => {
 
+  // STATUS 200
   test("Debe devolver: 200 status code", async () => {
 
     const datos = {
@@ -452,6 +483,7 @@ describe("Test GET /getRecomendacionesDelPaciente", () => {
     
   });
 
+  // ARRAY LIST
   test("Debe devolver una lista de las recomendaciones registradas: Array List", async () => {
 
     const datos = {
@@ -468,6 +500,7 @@ describe("Test GET /getRecomendacionesDelPaciente", () => {
     
   });
 
+  // TAMAÑO = 1
   test("El tamaño de la lista debe ser igual a 1", async () => {
 
     const datos = {
@@ -496,8 +529,10 @@ describe("Test GET /getRecomendacionesDelPaciente", () => {
 
 describe("TESTS RUTAS USUARIO (PACIENTE)", () => {
 
+  // GET RECOMENDACIONES DEL PACIENTE
   describe("Test GET /getRecomendacionesDelPaciente", () => {
-  
+    
+    // STATUS 200
     test("Debe devolver: 200 status code", async () => {
 
       const datos = {
@@ -514,6 +549,7 @@ describe("TESTS RUTAS USUARIO (PACIENTE)", () => {
       
     });
 
+    // ARRAY LIST
     test("Debe devolver una lista de las recomendaciones del paciente: Array List", async () => {
 
       const datos = {
@@ -530,7 +566,7 @@ describe("TESTS RUTAS USUARIO (PACIENTE)", () => {
       
     });
 
-
+    // TAMAÑO = 1
     test("El tamaño de la lista debe ser igual a 1", async () => {
 
       const datos = {
@@ -551,8 +587,10 @@ describe("TESTS RUTAS USUARIO (PACIENTE)", () => {
 
 });
 
+// GET INFORMACION GAMIFICACION POR ID
 describe("Test GET /getInfoGamificacionPorId", () => {
   
+  // STATUS 200
   test("Debe devolver: 200 status code", async () => {
 
     const datos = {
@@ -569,6 +607,7 @@ describe("Test GET /getInfoGamificacionPorId", () => {
     
   });
 
+    // JSON
   test("Debe devolver un objeto : JSON", async () => {
 
     const datos = {
@@ -587,8 +626,10 @@ describe("Test GET /getInfoGamificacionPorId", () => {
 
 });
 
+// GET ULTIMOS PESOS DEL USUARIO
 describe("Test GET /getUltimosPesosUsuario", () => {
   
+  // STATUS 200
   test("Debe devolver: 200 status code", async () => {
 
     const datos = {
@@ -605,6 +646,7 @@ describe("Test GET /getUltimosPesosUsuario", () => {
     
   });
 
+  // JSON {ARRAY , JSON}
   test("Debe devolver un objeto (listaPesos y rangoPesoIdeal) : JSON", async () => {
 
     const datos = {
@@ -621,6 +663,7 @@ describe("Test GET /getUltimosPesosUsuario", () => {
     
   });
 
+  // ARRAY
   test("Debe devolver una lista : Array List", async () => {
 
     const datos = {
@@ -637,6 +680,7 @@ describe("Test GET /getUltimosPesosUsuario", () => {
     
   });
 
+  // TAMAÑO = 1
   test("El tamaño de la lista debe ser 1", async () => {
 
     const datos = {
@@ -655,8 +699,10 @@ describe("Test GET /getUltimosPesosUsuario", () => {
 
 });
 
+// GET CLASIFICACION POR PUNTOS
 describe("Test GET /getClasificacionPorPuntos", () => {
   
+  //STATUS 200
   test("Debe devolver: 200 status code", async () => {
 
     const response = await request(app).get("/api/user/getClasificacionPorPuntos").send();
@@ -664,7 +710,7 @@ describe("Test GET /getClasificacionPorPuntos", () => {
     
   });
 
-
+  // ARRAY
   test("Debe devolver una lista : Array List", async () => {
 
     const response = await request(app).get("/api/user/getClasificacionPorPuntos").send();
@@ -675,9 +721,10 @@ describe("Test GET /getClasificacionPorPuntos", () => {
 
 });
 
-
+// GET ACTIVIDADES RECIENTES
 describe("Test GET /getActividadesRecientes", () => {
   
+  // STATUS 200
   test("Debe devolver: 200 status code", async () => {
 
     const response = await request(app).get("/api/user/getActividadesRecientes").send();
@@ -685,7 +732,7 @@ describe("Test GET /getActividadesRecientes", () => {
     
   });
 
-
+  //ARRAY
   test("Debe devolver una lista : Array List", async () => {
 
     const response = await request(app).get("/api/user/getActividadesRecientes").send();
@@ -696,8 +743,10 @@ describe("Test GET /getActividadesRecientes", () => {
 
 });
 
+// GET RETOS DIARIOS DEL USUARIO
 describe("Test GET /getRetosDiariosDelUsuario", () => {
   
+  //STATUS 200
   test("Debe devolver: 200 status code", async () => {
 
     const datos = {
@@ -714,7 +763,7 @@ describe("Test GET /getRetosDiariosDelUsuario", () => {
     
   });
 
-
+  // ARRAY
   test("Debe devolver una lista : Array List", async () => {
 
     const datos = {
@@ -732,6 +781,8 @@ describe("Test GET /getRetosDiariosDelUsuario", () => {
     
   });
 
+
+  // TAMAÑO = 3
   test("El tamaño de la lista debe ser: 3", async () => {
 
     const datos = {
@@ -750,8 +801,10 @@ describe("Test GET /getRetosDiariosDelUsuario", () => {
 
 });
 
+// GET TODA LA ALIMENTACION DE LA BD
 describe("Test GET /getAllFood", () => {
   
+  //STATUS 200
   test("Debe devolver: 200 status code", async () => {
 
     const response = await request(app).get("/api/user/getAllFood").send();
@@ -759,7 +812,7 @@ describe("Test GET /getAllFood", () => {
     
   });
 
-
+  // ARRAY
   test("Debe devolver una lista : Array List", async () => {
 
     const response = await request(app).get("/api/user/getAllFood").send();
@@ -768,9 +821,10 @@ describe("Test GET /getAllFood", () => {
   });
 });
 
-
+// MARCAR RECOMENDACION COMO COMPLETADO
 describe("Test POST /marcarRecomendacionComoCompletada", () => {
   
+  //STATUS 200
   test("Debe devolver: 200 status code", async () => {
 
     var _id = "";
@@ -797,9 +851,10 @@ describe("Test POST /marcarRecomendacionComoCompletada", () => {
 
 });
 
-
+// SUMAR PUNTUACION A USUARIO POR ELEMENTO
 describe("Test POST /sumarPuntuacionAUsuarioPorElemento", () => {
   
+  //200 STATUS
   test("Debe devolver: 200 status code", async () => {
 
     const datos = {
@@ -821,9 +876,10 @@ describe("Test POST /sumarPuntuacionAUsuarioPorElemento", () => {
 
 });
 
-
+// INSERTAR FOOD REGISTRATION
 describe("Test POST /insertFoodRegistration", () => {
   
+  //200 STATUS
   test("Debe devolver: 200 status code", async () => {
 
     const datos = {
@@ -855,6 +911,7 @@ describe("Test POST /insertFoodRegistration", () => {
     
   });
 
+    // 403 STATUS
   test("Al volver a insertar una comida debería devolver: 403 status code", async () => {
 
     const datos = {
@@ -891,9 +948,10 @@ describe("Test POST /insertFoodRegistration", () => {
 
 });
 
-
+// MARCAR RETO COMO COMPLETADO
 describe("Test POST /marcarRetoComoCompletado", () => {
   
+  // 200 STATUS
   test("Debe devolver: 200 status code", async () => {
 
     var _id = "";
