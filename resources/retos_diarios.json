@@ -34,5 +34,150 @@
         "description":"Realiza 10 sentadillas",
         "level": "2",
         "completed": false
+    },
+    {
+        "title":"Caminar",
+        "description":"Caminar 3000 pasos",
+        "level": "3",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Sube y baja las escaleras 3 veces",
+        "level": "3",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Realiza 15 sentadillas",
+        "level": "3",
+        "completed": false
+    },
+    {
+        "title":"Caminar",
+        "description":"Caminar 4000 pasos",
+        "level": "4",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Sube y baja las escaleras 4 veces",
+        "level": "4",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Realiza 20 sentadillas",
+        "level": "4",
+        "completed": false
+    },
+    {
+        "title":"Caminar",
+        "description":"Caminar 5000 pasos",
+        "level": "5",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Sube y baja las escaleras 5 veces",
+        "level": "5",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Realiza 25 sentadillas",
+        "level": "5",
+        "completed": false
+    },
+    {
+        "title":"Caminar",
+        "description":"Caminar 6000 pasos",
+        "level": "6",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Sube y baja las escaleras 6 veces",
+        "level": "6",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Realiza 30 sentadillas",
+        "level": "6",
+        "completed": false
+    },
+    {
+        "title":"Caminar",
+        "description":"Caminar 7000 pasos",
+        "level": "7",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Sube y baja las escaleras 7 veces",
+        "level": "7",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Realiza 35 sentadillas",
+        "level": "7",
+        "completed": false
+    },
+    {
+        "title":"Caminar",
+        "description":"Caminar 8000 pasos",
+        "level": "8",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Sube y baja las escaleras 8 veces",
+        "level": "8",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Realiza 40 sentadillas",
+        "level": "8",
+        "completed": false
+    },
+    {
+        "title":"Caminar",
+        "description":"Caminar 9000 pasos",
+        "level": "9",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Sube y baja las escaleras 9 veces",
+        "level": "9",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Realiza 45 sentadillas",
+        "level": "9",
+        "completed": false
+    },
+    {
+        "title":"Caminar",
+        "description":"Caminar 10000 pasos",
+        "level": "10",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Sube y baja las escaleras 10 veces",
+        "level": "10",
+        "completed": false
+    },
+    {
+        "title":"Actividad",
+        "description":"Realiza 50 sentadillas",
+        "level": "10",
+        "completed": false
     }
+
 ]
